@@ -12,5 +12,7 @@ expanding my skill set and sharing my progress with the community.
 I'm actively working with a range of technologies, and this list will grow as my journey continues. Some of the technologies you'll find in this repository include:
 
 Frontend: HTML, CSS, JavaScript, React, Redux, TypeScript, and more.
+
 Backend: Node.js, GraphQL, REST APIs, and more.
+
 Databases: MongoDB, and more.
