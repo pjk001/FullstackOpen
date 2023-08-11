@@ -1,5 +1,10 @@
 # FullstackOpen
 
+
+
+
+
+
 ## Introduction:
 
 Welcome to my Fullstack Development repository! This is where I document my journey as I learn the ins and outs of fullstack development. 
@@ -12,6 +17,10 @@ This repository serves as a hands-on learning journal for fullstack development.
 various technologies, frameworks, and best practices to build robust and scalable web applications. 
 Whether it's creating a simple to-do list app or diving into more complex projects, I'm committed to 
 expanding my skill set and sharing my progress with the community.
+
+
+
+
 
 
 
