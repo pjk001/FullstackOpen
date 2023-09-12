@@ -6,8 +6,8 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import personsTask from './services/persons'
 import Contact from './components/Contact'
-import Notification from './components/Notification'
-
+import GoodNotification from './components/GoodNotification'
+import BadNotification from './components/BadNotification'
 
 
 const App = () => {
@@ -143,8 +143,8 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={contactAddedMessage} />
-      <Notification message={errorMessage} />
+      <GoodNotification message={contactAddedMessage} />
+      <BadNotification message={errorMessage} />
 
       <Filter searchValue={searchPerson} onChangeSearch={event => setSearchPerson(event.target.value)}/>
 
