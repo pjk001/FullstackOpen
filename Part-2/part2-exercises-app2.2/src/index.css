@@ -1,0 +1,11 @@
+.contactAdded {
+  color: green;
+  border-color: green;
+  border-radius: 5px;
+  border: solid;
+  padding: 14px;
+  margin-bottom: 8px;
+  font-size: 21px;
+  border-width: 4px;
+  background-color: rgba(128, 128, 128, 0.4);
+}
