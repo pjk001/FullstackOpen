@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import personsTask from './services/persons'
-import Contact from './components/Contact'
 import GoodNotification from './components/GoodNotification'
 import BadNotification from './components/BadNotification'
+import FilteredResults from './components/FilteredResults'
 
 
 const App = () => {
@@ -146,11 +146,14 @@ const App = () => {
       <GoodNotification message={contactAddedMessage} />
       <BadNotification message={errorMessage} />
 
-      <Filter searchValue={searchPerson} onChangeSearch={event => setSearchPerson(event.target.value)}/>
+      <Filter 
+      searchValue={searchPerson} 
+      onChangeSearch={event => setSearchPerson(event.target.value)}
+      />
 
       <h3>add new contact</h3>
 
-    {/* contact input form */}
+
       <PersonForm 
       addNewContact={addNewContact} 
       newName={newName} 
@@ -162,12 +165,11 @@ const App = () => {
       <h2>Numbers</h2>
 
     
-    {/*how can I refactor this and the deleteContactOf function into its own component?? (need to somehow import states from App*/}
-    <>
-      {persons.filter(person => person.name.toLowerCase().includes(searchPerson.toLowerCase())).map(person => (
-        <Contact key={person.id} contact={person} deleteContact={() => deleteContactOf(person.id)} />  //memorize this if you have to
-      ))}
-    </>
+    <FilteredResults 
+    persons={persons} 
+    searchPerson={searchPerson} 
+    deleteContactOf={deleteContactOf}
+    />
 
     </div>
   )
