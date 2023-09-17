@@ -25,9 +25,11 @@ const App = () => {
 
 
 
+  /*this is no longer needed...(at the moment)
   useEffect(() => { //this is to update the countryInfo state immediately whenever it is changed
     //console.log(countryInfo.length)
   }, [countryInfo])
+  */
   
 
 
