@@ -3,15 +3,17 @@ import countryTasks from './services/countries'
 import OneCountry from './components/OneCountry'
 import FilteredResults from './components/FilteredResults'
 import SearchFilter from './components/SearchFilter'
+import Weather from './components/Weather'
 
-//import axios from 'axios'
+
+
 
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
   const [country, setCountry] = useState([])
   const [countryInfo, setCountryInfo] = useState([])
-
+  const [weather, setWeather] = useState(null)
 
   
   //need to utilize useEffect to fetch countries data
@@ -24,15 +26,6 @@ const App = () => {
   }, [])
 
 
-
-  /*this is no longer needed...(at the moment)
-  useEffect(() => { //this is to update the countryInfo state immediately whenever it is changed
-    //console.log(countryInfo.length)
-  }, [countryInfo])
-  */
-  
-
-
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value)
     
@@ -42,7 +35,6 @@ const App = () => {
       setCountryInfo([]) //whenever there is an object in countryInfo and the user begins searching again, set it back to empty
     }
   }
-  
 
 
   const showCountryInfoOf = (countryName) => {
@@ -71,11 +63,17 @@ const App = () => {
 
     ) : count.length !== 1 && countryInfo.length !== 0 ? (
 
-      <OneCountry countryInfo={countryInfo} />
+      <>
+        <OneCountry countryInfo={countryInfo} />
+        <Weather country={countryInfo} weather={weather} setWeather={setWeather} />
+      </>
 
     ) : count.length === 1 ? (
 
-      <OneCountry countryInfo={count} />
+      <>
+        <OneCountry countryInfo={count} />
+        <Weather country={count} weather={weather} setWeather={setWeather} />
+      </>
 
     ) : (
 
