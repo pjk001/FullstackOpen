@@ -22,6 +22,7 @@ const Weather = ({ country, weather, setWeather }) => {
         <>
           <div>Temperature: {((weather.main.temp - 273.15) * 9/5 + 32).toFixed(2)} Fahrenheit</div>
           <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}></img>
+          <div>wind {weather.wind.speed} m/s</div>
         </>
       ) : (
         null
