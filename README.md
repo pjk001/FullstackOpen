@@ -7,7 +7,7 @@
 
 ## Introduction:
 
-Welcome to my Fullstack Development repository! This is where I document my journey as I learn the ins and outs of fullstack development. 
+Welcome to my Fullstack Development repository! This is where I document my journey as I learn the ins and outs of fullstack development, courtesy of the University of Helsinki's open course https://fullstackopen.com/en/. 
 Here you'll find a collection of exercises, mini applications, and projects that I've worked on to enhance my skills. 
 Feel free to explore the code, learn from it, and provide feedback if you find something interesting or if you have suggestions for improvement.
 
