@@ -85,22 +85,7 @@ const App = () => {
   const addNewContact = (event) => {
     event.preventDefault()  //prevent from default reloading on submit
 
-    const numberRegex = /^[a-zA-Z]+$/
-    const nameRegex = /^[0-9]+$/
-
-    if (newName === "" && newNumber === "") {
-      alert("Please provide a valid name and number")
-
-    } else if (newNumber.match(numberRegex) && newName.match(nameRegex)) {
-      alert("Both fields are in the wrong format")
-
-    } else if (newName.match(nameRegex) || newName === "") {
-      alert("The name you've enterd is incomplete or in the wrong format")
-
-    } else if (newNumber.match(numberRegex) || newNumber === "") {
-      alert("The number you've entered is incomplete or in the wrong format")
-
-    } else if (persons.find(person => person.name === newName)) { 
+    if (persons.find(person => person.name === newName)) { 
 
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
         const personFound = persons.find(person => person.name === newName)
@@ -118,14 +103,23 @@ const App = () => {
       personsTask
         .create(newContact)
         .then(response => {
+          setContactAddedMessage(
+            `Added ${newName}`
+          )
           setPersons(persons.concat(response.data)) //we are concatenating the response data from server WITH the new added contact
           setNewName('')                            //effectively updating the entire persons array with the updated data
           setNewNumber('')
         })
+        .catch(error => {
+          console.log(error.response.data.error)
+          setErrorMessage(error.response.data.error)
 
-        setContactAddedMessage(
-          `Added ${newName}`
-        )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 2000)
+        })
+
+      
         setTimeout(() => {
           setContactAddedMessage(null)
         }, 2000)
@@ -175,4 +169,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App
