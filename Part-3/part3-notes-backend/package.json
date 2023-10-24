@@ -10,7 +10,8 @@
     "build:ui": "rm -rf dist && cd ../../Part-2/part2-notes && npm run build && cp -r dist ../../Part-3/part3-notes-backend",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
-    "logs:prod": "fly logs"
+    "logs:prod": "fly logs",
+    "lint": "eslint ."
   },
   "author": "Philip Kim",
   "license": "MIT",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.10",
+    "eslint": "^8.51.0",
     "nodemon": "^3.0.1"
   }
 }
