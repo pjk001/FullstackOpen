@@ -1,33 +1,24 @@
-const mongoose = require('mongoose')
 const supertest = require('supertest')
+const mongoose = require('mongoose')
+const helper = require('./test_helper')
 const app = require('../app')
 
 const api = supertest(app)
 const Blog = require('../models/blog')
 
 
-const initialBlogs = [
-  {
-    "title": "The Grinch Who Stole Christmas",
-    "author": "Dr.Seuss",
-    "url": "drseuss.com",
-    "likes": 47
-  },
-  {
-    "title": "HTML is easy",
-    "author": "HTML",
-    "url": "onlyhtml.com",
-    "likes": 21
-  },
-]
 
 beforeEach(async () => {
   await Blog.deleteMany({})
+  await Blog.insertMany(helper.initialBlogs)
+  /*
+  await Blog.deleteMany({})
 
-  const blogObjects = initialBlogs
+  const blogObjects = helper.initialBlogs
     .map(blog => new Blog(blog))
   const promiseArray = blogObjects.map(blog => blog.save())
   await Promise.all(promiseArray)
+  */
 
   /*
   let blogObject = new Blog(initialBlogs[0])
@@ -52,7 +43,7 @@ test('blogs are returned as json', async() => {
 test('correct number of blogs returned', async() => {
   const response = await api.get('/api/blogs')
 
-  expect(response.body).toHaveLength(initialBlogs.length)
+  expect(response.body).toHaveLength(helper.initialBlogs.length)
 })
 
 
@@ -83,7 +74,7 @@ test('verify that POST works successfully', async() => {
 
   const titles = response.body.map(r => r.title)
 
-  expect(response.body).toHaveLength(initialBlogs.length + 1)
+  expect(response.body).toHaveLength(helper.initialBlogs.length + 1)
   expect(titles).toContain(
     'All I Want for Christmas'
   )
@@ -109,7 +100,7 @@ test('verify blogs without likes default to zero likes', async() => {
 
 
   const allBlogs  = await api.get('/api/blogs')
-  expect(allBlogs.body).toHaveLength(initialBlogs.length + 1)
+  expect(allBlogs.body).toHaveLength(helper.initialBlogs.length + 1)
 })
 
 
@@ -136,7 +127,49 @@ test('status code 400 for title/url missing in req data', async() => {
 
 
   const response = await api.get('/api/blogs')
-  expect(response.body).toHaveLength(initialBlogs.length)
+  expect(response.body).toHaveLength(helper.initialBlogs.length)
+})
+
+
+//create a test_helper.js file just like part3-notes-backend and use the toJSON method we defined
+//in order to get 'id' and not '_id'
+test('deletion of a single blog', async() => {
+  const blogsAtStart = await helper.blogsInDb() //we get the jsonified schema we defined in models.js
+  const blogToDelete = blogsAtStart[0]
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)  
+
+  const blogsAtEnd = await helper.blogsInDb()
+
+  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1)
+
+  const titles = blogsAtEnd.map(r => r.title)
+
+  expect(titles).not.toContain(blogToDelete.title)
+})
+
+
+
+test('updating a single blog', async() => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToUpdate = blogsAtStart[0]
+
+  const updatedLikes = {
+    "likes": 100
+  }
+
+  const response = await api
+    .put(`/api/blogs/${blogToUpdate.id}`)
+    .send(updatedLikes)
+    .expect(200)
+
+    const blogsAtEnd = await api.get('/api/blogs')
+    expect(blogsAtEnd.body).toHaveLength(helper.initialBlogs.length)
+
+    const updatedBlog = response.body
+    expect(updatedBlog.likes).toBe(100)
 })
 
 
